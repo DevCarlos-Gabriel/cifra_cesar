@@ -82,9 +82,9 @@ fn encrypt(msg:&str, desl:&str ) -> String
     {
         let mut result = String::new();
 
-        // pegando cada letra da variável msg por completo com o 'lattes'
+        // pegando cada letra da variável msg por completo com o 'letters'
 
-        for lattes in msg.chars()
+        for letters in msg.chars()
         {
             
             // Transformando o 'desloca' num número.
@@ -98,21 +98,21 @@ fn encrypt(msg:&str, desl:&str ) -> String
                 }
             };
 
-            if has_accent(lattes)
+            if has_accent(letters)
             {
-                result.push(lattes);
+                result.push(letters);
             }
 
             // Verificando se a letra é minuscula ou maiúscula
-            if lattes.is_alphabetic()
+            if letters.is_alphabetic()
             {
-            match lattes.is_ascii_lowercase()
+            match letters.is_ascii_lowercase()
             {
                 true =>
                 {
                     for index in 0..LOWERCASE_ALF.len()
                     {
-                        if lattes == LOWERCASE_ALF[index]
+                        if letters == LOWERCASE_ALF[index]
                         {
                             let soma: i32 = (index as i32 + desl_num) % 26;
 
@@ -124,7 +124,7 @@ fn encrypt(msg:&str, desl:&str ) -> String
                 {
                     for index in 0..UPPERCASE_ALF.len()
                     {
-                        if lattes == UPPERCASE_ALF[index]
+                        if letters == UPPERCASE_ALF[index]
                         {
                             let soma:i32 = (index as i32 + desl_num) % 26;
 
@@ -137,7 +137,7 @@ fn encrypt(msg:&str, desl:&str ) -> String
             }
             else
             {
-                result.push(lattes);
+                result.push(letters);
             }
         }
         result.trim().to_string()
@@ -149,7 +149,7 @@ fn decrypt(msg: &str, num_decrypt: &str) -> String
 {
     let mut result = String::new();
 
-    for lattes in msg.chars()
+    for letters in msg.chars()
     {
          let desl_num = match num_decrypt.trim().parse::<i32>()
          {
@@ -161,20 +161,20 @@ fn decrypt(msg: &str, num_decrypt: &str) -> String
              }
          };
 
-         if has_accent(lattes)
+         if has_accent(letters)
          {
-            result.push(lattes);
+            result.push(letters);
          }
 
-         if lattes.is_alphabetic()
+         if letters.is_alphabetic()
          {
-            match lattes.is_ascii_lowercase()
+            match letters.is_ascii_lowercase()
              {
                 true =>
                 {
                     for index in 0..LOWERCASE_ALF.len()
                     {
-                        if lattes == LOWERCASE_ALF[index]
+                        if letters == LOWERCASE_ALF[index]
                         {
                             let sub: i32 = (index as i32 - desl_num + 26) %26;
 
@@ -186,7 +186,7 @@ fn decrypt(msg: &str, num_decrypt: &str) -> String
                 {
                     for index in 0..UPPERCASE_ALF.len()
                     {
-                        if lattes == UPPERCASE_ALF[index]
+                        if letters == UPPERCASE_ALF[index]
                         {
                             let sub: i32 = (index as i32 - desl_num + 26) %26;
                             
@@ -198,7 +198,7 @@ fn decrypt(msg: &str, num_decrypt: &str) -> String
          }
          else
          {
-             result.push(lattes);
+             result.push(letters);
          }
     }
     result.trim().to_string()
