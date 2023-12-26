@@ -1,4 +1,5 @@
 use std::io;
+use unicode_normalization::UnicodeNormalization;
 
 const  UPPERCASE_ALF: [char; 26]= ['A', 'B', 'C', 'D', 'E', 'F', 'G','H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X','Y', 'Z'];
 
@@ -21,7 +22,7 @@ fn main() {
     {
         "Criptografar" =>
         {
-            println!("Informe a mensagem que você quer criptografar (ela não pode conter caracteres especiais):");
+            println!("Informe a mensagem que você quer criptografar:");
 
             let mut message = String::new();
 
@@ -43,7 +44,7 @@ fn main() {
         },
         "Descriptografar" =>
         {
-            println!("Informe a mensagem que você quer descriptografar (ela não pode conter caracteres especiais):");
+            println!("Informe a mensagem que você quer descriptografar:");
 
             let mut message = String::new();
 
@@ -70,6 +71,12 @@ fn main() {
     }
 }
 
+fn has_accent(lat:char) -> bool
+{
+    let normalization = lat.nfd().collect::<String>();
+
+    normalization.chars().count() > 1
+}
 
 fn encrypt(msg:&str, desl:&str ) -> String
     {
@@ -79,6 +86,7 @@ fn encrypt(msg:&str, desl:&str ) -> String
 
         for lattes in msg.chars()
         {
+            
             // Transformando o 'desloca' num número.
             let desl_num = match desl.trim().parse::<i32>()
             {
@@ -90,6 +98,11 @@ fn encrypt(msg:&str, desl:&str ) -> String
                 }
             };
 
+            if has_accent(lattes)
+            {
+                result.push(lattes);
+            }
+
             // Verificando se a letra é minuscula ou maiúscula
             if lattes.is_alphabetic()
             {
@@ -99,15 +112,13 @@ fn encrypt(msg:&str, desl:&str ) -> String
                 {
                     for index in 0..LOWERCASE_ALF.len()
                     {
-                        
                         if lattes == LOWERCASE_ALF[index]
                         {
-                            let soma: i32= (index as i32 + desl_num) %26 ;
+                            let soma: i32 = (index as i32 + desl_num) % 26;
 
                             result.push( LOWERCASE_ALF[soma as usize]);
                         }
                     }
-                    
                 },
                 false=>
                 {
@@ -115,13 +126,12 @@ fn encrypt(msg:&str, desl:&str ) -> String
                     {
                         if lattes == UPPERCASE_ALF[index]
                         {
-                            let soma:i32 = (index as i32 + desl_num) %26 ;
+                            let soma:i32 = (index as i32 + desl_num) % 26;
 
                             result.push( UPPERCASE_ALF[soma as usize]);
                         }
                        
                     }
-
                 }
             }
             }
@@ -132,7 +142,6 @@ fn encrypt(msg:&str, desl:&str ) -> String
         }
         result.trim().to_string()
 }
-
 
     // Descriptografando a mensagem.
 
@@ -151,6 +160,11 @@ fn decrypt(msg: &str, num_decrypt: &str) -> String
                 break
              }
          };
+
+         if has_accent(lattes)
+         {
+            result.push(lattes);
+         }
 
          if lattes.is_alphabetic()
          {
