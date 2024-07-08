@@ -1,13 +1,12 @@
 use std::io;
 use unicode_normalization::UnicodeNormalization;
 
-const  UPPERCASE_ALF: [char; 26]= ['A', 'B', 'C', 'D', 'E', 'F', 'G','H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X','Y', 'Z'];
+const  UPPERCASE_ALF: [char; 26] = ['A', 'B', 'C', 'D', 'E', 'F', 'G','H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X','Y', 'Z'];
 
 const  LOWERCASE_ALF: [char; 26] = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
 
 fn main() {
-    println!("Olá sou programa que mexe com a Cifra de César, comigo você  pode tanto criptografar como descriptografar mensagens.\n\
-    Informe uma das seguintes opções:\n\
+    println!("Informe uma das seguintes opções:\n\
     Criptografar\n\
     Descriptografar\n\
     ");
@@ -30,7 +29,7 @@ fn main() {
             .read_line(&mut message)
             .expect("Erro ao pegar a mensagem para criptografar!");
 
-            println!("Informe quantas letras o vão ser deslocadas no alfabeto:");
+            println!("Informe quantas letras vão ser deslocadas no alfabeto:");
 
             let mut desloca_input = String::new();
 
