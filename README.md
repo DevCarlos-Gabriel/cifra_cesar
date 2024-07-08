@@ -94,4 +94,4 @@ Contribuições são bem-vindas! Sinta-se à vontade para abrir um PR ou relatar
 
 ## Licença 📄
 
-Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE]() para mais detalhes.
+Este projeto está licenciado sob a Licença MIT - veja o arquivo [LICENSE](https://github.com/DevCarlos-Gabriel/cifra_cesar/blob/main/LICENSE) para mais detalhes.
